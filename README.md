@@ -12,8 +12,9 @@ Operations persisting to the database have a dedicated, well-tuned thread pool a
 ### System Design
 
 <p>
-    <img src="diagram.png" width="1200" height="600" />
+    <img src="diagram.png"/>
 </p>
+
 
 #### Data Flow
 - The Order Service application takes in an `Order` as a request,
