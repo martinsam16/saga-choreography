@@ -47,3 +47,29 @@ docker-compose up -d
 ```
 
 - Make a **GET** Request to `localhost:9192/orders` and see the order status updated
+
+K8s Design
+
+<p>
+    <img src="diagram-k8s.png"/>
+</p>
+
+- Run manifests:
+
+```
+cd manifests
+# Install ingress on cluster
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
+kubectl apply -f .
+```
+
+- Make a **POST** Request to `localhost/order/orders` with request body: 
+
+```
+{
+    "userId": 1,
+    "productId": 1
+}
+```
+
+- Make a **GET** Request to `localhost/order/orders` and see the order status updated
