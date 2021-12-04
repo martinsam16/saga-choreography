@@ -1,6 +1,21 @@
 server:
   port: 9192
 spring:
+  kafka:
+    bootstrap-servers: sulky-01.srvs.cloudkafka.com:9094,sulky-02.srvs.cloudkafka.com:9094,sulky-03.srvs.cloudkafka.com:9094
+    jaas:
+      enabled: true
+    properties:
+      security:
+        protocol: SASL_SSL
+      sasl:
+        mechanism: SCRAM-SHA-256
+        jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="tp37rlrg" password="rtimYQKhNJTvpzyzkDiWaGSY_pa-HLXA";
+    consumer:
+      group-id: tp37rlrg-consumers
+      auto-offset-reset: latest
+      properties.spring.json.trusted.packages: sample.kafka
+
   cloud:
     stream:
       kafka:
@@ -10,9 +25,9 @@ spring:
         definition: orderPurchaseEventPublisher;transactionEventProcessor;
       bindings:
         orderPurchaseEventPublisher-out-0:
-          destination: orders
+          destination: tp37rlrg-orders
         transactionEventProcessor-in-0:
-          destination: transactions
+          destination: tp37rlrg-transactions
   datasource:
     url: jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1
     driverClassName: org.h2.Driver
