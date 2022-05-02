@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-payment-flow
@@ -12,13 +12,17 @@ spec:
     - http:
         paths:
           - backend:
-              serviceName: order-ms
-              servicePort: 9192
+              service:
+                name: order-ms
+                port:
+                  number: 9192
             path: /order/?(.*)
             pathType: Prefix
           - backend:
-              serviceName: payment-ms
-              servicePort: 9191
+              service:
+                name: payment-ms
+                port:
+                  number: 9191
             path: /payment/?(.*)
             pathType: Prefix
 
